@@ -1,37 +1,103 @@
-# The command that runs the program. If the interpreter field is set, it will have priority and this run command will do nothing
-run = "python3 main.py"
-
-# The primary language of the repl. There can be others, though!
-language = "python3"
-entrypoint = "main.py"
-# A list of globs that specify which files and directories should
-# be hidden in the workspace.
-hidden = ["venv", ".config", "**/__pycache__", "**/.mypy_cache", "**/*.pyc"]
-modules = ["python-3.10"]
-
-# Specifies which nix channel to use when building the environment.
 [nix]
-channel = "stable-22_11"
+packages = ["gdb"]
+� ПРИЛОЖЕНИЯ (Run Configuration)
+
+# Назначение: определяет команду для запуска основного приложения
+
+# Команда запуска программы. Если поле interpreter установлено, оно имеет приоритет,
+# и эта команда запуска не будет выполнена
+run = "python3 main.py"   # Запускает Flask-сервер через интерпретатор Python 3
+
+
+
+# БЛОК НАСТРОЙКИ ЯЗЫКА ПРОГРАММИРОВАНИЯ (Language Settings)
+
+# Назначение: определяет основной язык проекта и точку входа
+
+# Основной язык программирования в repl
+language = "python3"      # Указывает, что проект использует Python 3
+
+# Точка входа в приложение (главный файл)
+entrypoint = "main.py"    # Файл, который выполняется первым при запуске
+
+
+
+# БЛОК СКРЫТИЯ ФАЙЛОВ И ПАПОК (Hidden Files Configuration)
+
+# Назначение: скрывает служебные и временные файлы из обзора в рабочей области
+
+# Список glob-шаблонов, указывающих, какие файлы и директории должны быть скрыты
+hidden = [
+    "venv",               # Виртуальное окружение Python (скрыто)
+    ".config",            # Конфигурационные файлы Replit
+    "**/__pycache__",     # Кэшированные байт-код файлы Python (в любых вложенных папках)
+    "**/.mypy_cache",     # Кэш статического анализатора mypy
+    "**/*.pyc"            # Скомпилированные Python файлы
+]
+
+
+
+# БЛОК ПОДКЛЮЧЕНИЯ МОДУЛЕЙ ОКРУЖЕНИЯ (Environment Modules)
+
+# Назначение: подключает дополнительные модули для работы среды выполнения
+
+modules = ["python-3.10"]   # Модуль окружения, задающий версию Python 3.10
+
+
+
+# БЛОК КОНФИГУРАЦИИ NIX-ПАКЕТОВ (Nix Packages Configuration)
+
+# Назначение: определяет системные зависимости через Nix-пакеты
+
+[nix]                     # Секция конфигурации Nix (менеджера пакетов)
+channel = "stable-22_11"  # Канал Nix с фиксированной версией пакетов (стабильный)
 packages = ["gdb"]
 
-[env]
+# БЛОК ПЕРЕМЕННЫХ ОКРУЖЕНИЯ (Environment Variables)
 
-# Enable unit tests. This is only supported for a few languages.
-[unitTest]
-language = "python3"
+# Назначение: определяет переменные окружения для приложения
 
-# These are the files that need to be preserved when this 
-# language template is used as the base language template
-# for Python repos imported from GitHub
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix", ".config", "venv"]
+[env]                     # Секция переменных окружения (пусто, можно добавлять)
+                          # Пример: DEBUG = "true" или FLASK_ENV = "development"
 
-[deployment]
-run = ["sh", "-c", "python3 main.py"]
 
-[[ports]]
-localPort = 5000
-externalPort = 80
+# БЛОК НАСТРОЙКИ ЮНИТ-ТЕСТОВ (Unit Test Configuration)
 
-[agent]
-expertMode = true
+# Назначение: включает поддержку запуска автоматических тестов
+
+[unitTest]                # Секция конфигурации юнит-тестов
+language = "python3"      # Язык, на котором написаны тесты (Python 3)
+
+# БЛОК НАСТРОЙКИ ИМПОРТА ИЗ GITHUB (GitHub Import Configuration)
+
+# Назначение: определяет обязательные файлы при импорте репозитория из GitHub
+
+[gitHubImport]            # Секция для импорта репозиториев с GitHub
+requiredFiles = [         # Список файлов, которые должны сохраняться при импорте
+    ".replit",            # Конфигурация среды Replit
+    "replit.nix",         # Nix-зависимости Replit
+    ".config",            # Конфигурационная папка
+    "venv"                # Виртуальное окружение
+]
+
+# БЛОК КОНФИГУРАЦИИ РАЗВЕРТЫВАНИЯ (Deployment Configuration)
+
+# Назначение: определяет команды для запуска приложения в продакшн-среде
+
+[deployment]              # Секция развертывания (деплоя)
+run = ["sh", "-c", "python3 main.py"]  # Запуск через shell: выполняет python3 main.py
+
+# БЛОК НАСТРОЙКИ СЕТЕВЫХ ПОРТОВ (Ports Configuration)
+
+# Назначение: настраивает проброс портов для доступа к приложению
+
+[[ports]]                 # Секция настройки порта (двойные скобки для массива)
+localPort = 5000          # Внутренний порт, который слушает Flask-сервер
+externalPort = 80         # Внешний порт, доступный пользователю (стандартный HTTP)
+
+# БЛОК РАСШИРЕННЫХ НАСТРОЕК ПОЛЬЗОВАТЕЛЯ (Agent Settings)
+
+# Назначение: включает экспертную модерацию и дополнительные возможности
+
+[agent]                   # Секция настройки агента Replit
+expertMode = true         # Включение экспертного режима (расширенные возможности)
