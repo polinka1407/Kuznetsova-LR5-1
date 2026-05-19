@@ -2,67 +2,78 @@
 <html>
 
 <head>
+  <!-- ============================================ -->
+  <!-- БЛОК МЕТАДАННЫХ И НАСТРОЕК ОТОБРАЖЕНИЯ -->
+  <!-- ============================================ -->
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Roboflow + Replit Example</title>
 
-  <!-- Load roboflow.js, the script that will handle loading and running our computer vision model in the browser -->
+  <!-- ============================================ -->
+  <!-- БЛОК ПОДКЛЮЧЕНИЯ ВНЕШНИХ БИБЛИОТЕК -->
+  <!-- ============================================ -->
+  <!-- Подключение InferenceJS для работы с моделями Roboflow -->
   <script src="https://cdn.jsdelivr.net/npm/inferencejs"></script>
   
+  <!-- Подключение локальных стилей -->
   <link rel="stylesheet" href="/static/styles.css" />
 
+  <!-- ============================================ -->
+  <!-- БЛОК КОНФИГУРАЦИИ МОДЕЛИ -->
+  <!-- ============================================ -->
   <script>
-    // Replace the key below with your Roboflow publishable key
+    // API ключ для доступа к Roboflow
     var publishable_key = "rf_l8GLzZgLQL6gZLAin1iU";
 
-    // Change these values to set your model name, version, and the
-    // confidence threshold that must be met for the model to return
-    // a prediction.
-
-    // We recommend setting a low CONFIDENCE_THRESHOLD value while testing
-    // and filtering out predictions by confidence level using the
-    //"Prediction Confidence %" filter
-
-    const CONFIDENCE_THRESHOLD = 0.1;
-    const MODEL_NAME = "microsoft-coco";
-    const MODEL_VERSION = 9;
+    // Параметры модели Microsoft COCO (распознает 80 типов объектов)
+    const CONFIDENCE_THRESHOLD = 0.1;   // Минимальный порог уверенности (10%)
+    const MODEL_NAME = "microsoft-coco";  // Название модели
+    const MODEL_VERSION = 9;              // Версия модели
   </script>
 </head>
 
 <body>
+  <!-- ============================================ -->
+  <!-- БЛОК ОСНОВНОГО КОНТЕНТА -->
+  <!-- ============================================ -->
   <main>
+    <!-- БЛОК ЗАГОЛОВКОВ И ОПИСАНИЯ -->
     <h1>Roboflow + Replit Web Example 🚀</h1>
-    <p>Roboflow enables you to build and run custom computer vision models in your browser, on your device (i.e. NVIDIA
-      Jetson, Luxonis OAK, via Docker), and via API.
-    </p>
+    <p>Roboflow enables you to build and run custom computer vision models...</p>
     <p>The below example runs <a href="https://universe.roboflow.com/jacob-solawetz/microsoft-coco">Microsoft's
-        COCO</a> model to identify common objects, which is one of 50,000 open source models ready to use on <a
-        href="https://universe.roboflow.com">Roboflow Universe</a></p>
+        COCO</a> model to identify common objects...</p>
 
-    <p>Using the demo below, you can identify <a href="https://universe.roboflow.com/jacob-solawetz/microsoft-coco">80
-        different objects</a> using your webcam, from people to chairs to cups.</p>
-
+    <!-- БЛОК ИНДИКАТОРА ЗАГРУЗКИ -->
     <p id="loading">Loading...</p>
 
-    <!-- The canvas below is required -->
+    <!-- ============================================ -->
+    <!-- БЛОК ВИДЖЕТА ИНФЕРЕНСА (видео + canvas) -->
+    <!-- ============================================ -->
     <section class="infer-widget">
+      <!-- Canvas для отрисовки рамок поверх видео -->
       <canvas width="640" height="480" id="video_canvas"></canvas>
     </section>
 
+    <!-- ============================================ -->
+    <!-- БЛОК НАСТРОЕК ПОЛЬЗОВАТЕЛЯ -->
+    <!-- ============================================ -->
     <section id="settings">
       <label for="confidence">Prediction Confidence %</label><br>
+      <!-- Ползунок выбора порога уверенности (1-100%) -->
       <input type="range" min="1" max="100" value="60" class="slider" id="confidence">
     </section>
 
+    <!-- ============================================ -->
+    <!-- БЛОК ССЫЛОК И КНОПОК НАВИГАЦИИ -->
+    <!-- ============================================ -->
     <section class="links">
       <a href="https://blog.roboflow.com/getting-started-with-roboflow/" class="styled-button">Build a Custom Model</a>
-      <a href="https://universe.roboflow.com" class="styled-button styled-button-turqouise">Explore 50k+
-        Models and Datasets</a>
+      <a href="https://universe.roboflow.com" class="styled-button styled-button-turqouise">Explore 50k+ Models and Datasets</a>
     </section>
 
-    <!-- Load our application logic -->
+    <!-- ============================================ -->
+    <!-- БЛОК ПОДКЛЮЧЕНИЯ ЛОКАЛЬНОГО СКРИПТА -->
+    <!-- ============================================ -->
     <script src="/static/script.js"></script>
   </main>
 </body>
