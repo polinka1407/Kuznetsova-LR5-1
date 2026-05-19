@@ -4,76 +4,84 @@
 <head>
   <!-- ============================================ -->
   <!-- БЛОК МЕТАДАННЫХ И НАСТРОЕК ОТОБРАЖЕНИЯ -->
-  <!-- ============================================ -->
+  /* ============================================ */
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roboflow + Replit Example</title>
 
   <!-- ============================================ -->
   <!-- БЛОК ПОДКЛЮЧЕНИЯ ВНЕШНИХ БИБЛИОТЕК -->
-  <!-- ============================================ -->
-  <!-- Подключение InferenceJS для работы с моделями Roboflow -->
+  /* ============================================ */
+  <!-- InferenceJS - библиотека для запуска моделей Roboflow в браузере -->
   <script src="https://cdn.jsdelivr.net/npm/inferencejs"></script>
   
-  <!-- Подключение локальных стилей -->
+  <!-- Подключение локальных CSS стилей -->
   <link rel="stylesheet" href="/static/styles.css" />
 
   <!-- ============================================ -->
   <!-- БЛОК КОНФИГУРАЦИИ МОДЕЛИ -->
-  <!-- ============================================ -->
+  /* ============================================ */
   <script>
-    // API ключ для доступа к Roboflow
+    // API ключ для доступа к Roboflow (замените на свой)
     var publishable_key = "rf_l8GLzZgLQL6gZLAin1iU";
 
-    // Параметры модели Microsoft COCO (распознает 80 типов объектов)
-    const CONFIDENCE_THRESHOLD = 0.1;   // Минимальный порог уверенности (10%)
-    const MODEL_NAME = "microsoft-coco";  // Название модели
-    const MODEL_VERSION = 9;              // Версия модели
+    // Порог уверенности модели (0.1 = 10%, ниже этого значения предсказания игнорируются)
+    const CONFIDENCE_THRESHOLD = 0.1;
+    
+    // Название модели Microsoft COCO (распознает 80 типов объектов)
+    const MODEL_NAME = "microsoft-coco";
+    
+    // Версия модели
+    const MODEL_VERSION = 9;
   </script>
 </head>
 
 <body>
   <!-- ============================================ -->
-  <!-- БЛОК ОСНОВНОГО КОНТЕНТА -->
-  <!-- ============================================ -->
+  <!-- БЛОК ОСНОВНОГО КОНТЕНТА СТРАНИЦЫ -->
+  /* ============================================ */
   <main>
     <!-- БЛОК ЗАГОЛОВКОВ И ОПИСАНИЯ -->
     <h1>Roboflow + Replit Web Example 🚀</h1>
-    <p>Roboflow enables you to build and run custom computer vision models...</p>
+    <p>Roboflow enables you to build and run custom computer vision models in your browser, on your device (i.e. NVIDIA
+      Jetson, Luxonis OAK, via Docker), and via API.
+    </p>
     <p>The below example runs <a href="https://universe.roboflow.com/jacob-solawetz/microsoft-coco">Microsoft's
-        COCO</a> model to identify common objects...</p>
+        COCO</a> model to identify common objects, which is one of 50,000 open source models ready to use on <a
+        href="https://universe.roboflow.com">Roboflow Universe</a></p>
 
-    <!-- БЛОК ИНДИКАТОРА ЗАГРУЗКИ -->
+    <!-- БЛОК ИНДИКАТОРА ЗАГРУЗКИ (появляется во время инициализации) -->
     <p id="loading">Loading...</p>
 
     <!-- ============================================ -->
     <!-- БЛОК ВИДЖЕТА ИНФЕРЕНСА (видео + canvas) -->
-    <!-- ============================================ -->
+    /* ============================================ */
     <section class="infer-widget">
-      <!-- Canvas для отрисовки рамок поверх видео -->
+      <!-- Canvas для отрисовки bounding boxes поверх видео -->
       <canvas width="640" height="480" id="video_canvas"></canvas>
     </section>
 
     <!-- ============================================ -->
     <!-- БЛОК НАСТРОЕК ПОЛЬЗОВАТЕЛЯ -->
-    <!-- ============================================ -->
+    /* ============================================ */
     <section id="settings">
       <label for="confidence">Prediction Confidence %</label><br>
-      <!-- Ползунок выбора порога уверенности (1-100%) -->
+      <!-- Ползунок для настройки минимальной уверенности (от 1% до 100%) -->
       <input type="range" min="1" max="100" value="60" class="slider" id="confidence">
     </section>
 
     <!-- ============================================ -->
-    <!-- БЛОК ССЫЛОК И КНОПОК НАВИГАЦИИ -->
-    <!-- ============================================ -->
+    <!-- БЛОК КНОПОК-ССЫЛОК НАВИГАЦИИ -->
+    /* ============================================ */
     <section class="links">
       <a href="https://blog.roboflow.com/getting-started-with-roboflow/" class="styled-button">Build a Custom Model</a>
-      <a href="https://universe.roboflow.com" class="styled-button styled-button-turqouise">Explore 50k+ Models and Datasets</a>
+      <a href="https://universe.roboflow.com" class="styled-button styled-button-turqouise">Explore 50k+
+        Models and Datasets</a>
     </section>
 
     <!-- ============================================ -->
-    <!-- БЛОК ПОДКЛЮЧЕНИЯ ЛОКАЛЬНОГО СКРИПТА -->
-    <!-- ============================================ -->
+    <!-- БЛОК ПОДКЛЮЧЕНИЯ ЛОКАЛЬНОГО JAVASCRIPT -->
+    /* ============================================ */
     <script src="/static/script.js"></script>
   </main>
 </body>
